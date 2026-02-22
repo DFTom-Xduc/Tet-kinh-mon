@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hoạt động chào mừng Tết - THPT Kinh Môn II</title>
+    <style>
+        /* --- CÀI ĐẶT CƠ BẢN --- */
+        :root {
+            --primary-red: #b71c1c; 
+            --accent-gold: #ffd700;
+            --text-dark: #2c3e50;
+            --bg-light: #fdfbf7;
+            --header-height: 70px; 
+        }
+
+        html {
+            /* QUAN TRỌNG: Giúp cuộn trang mượt mà khi bấm menu */
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            margin: 0;
+            padding-top: calc(var(--header-height) + 30px); 
+        }
+
+        /* --- THANH TIÊU ĐỀ (HEADER & NAVIGATOR) --- */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--header-height);
+            background-color: var(--primary-red);
+            color: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            padding: 0 20px; 
+            box-sizing: border-box; 
+        }
+
+        .navbar-content {
+            width: 100%;
+            max-width: 1200px; /* Tăng rộng ra một chút để chứa menu */
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between; 
+        }
+
+        /* Logo bên trái */
+        .logo-box {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0; /* Không cho logo bị co lại */
+        }
+
+        .logo {
+            height: 50px; 
+            width: auto;
+            background: white;
+            border-radius: 50%;
+            padding: 2px;
+            border: 2px solid var(--accent-gold);
+        }
+
+        /* MENU ĐIỀU HƯỚNG (MỚI THÊM) */
+        .nav-links {
+            display: flex;
+            gap: 25px; /* Khoảng cách giữa các mục menu */
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1rem;
+            text-transform: uppercase;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        /* Hiệu ứng gạch chân vàng khi di chuột vào menu */
+        .nav-links a:hover {
+            color: var(--accent-gold);
+        }
+        
+        .nav-links a::after {
+            content: '';
+            display: block;
+            width: 0;
+            height: 2px;
+            background: var(--accent-gold);
+            transition: width .3s;
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Tên trường bên phải */
+        .school-name {
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            color: var(--accent-gold);
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+            flex-shrink: 0; /* Không cho tên trường bị co lại */
+        }
+
+        /* --- CONTAINER BÀI VIẾT --- */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 40px;
+            background: #fff;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+            border-radius: 8px;
+        }
+
+        /* --- CÁC PHẦN NỘI DUNG --- */
+        header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--primary-red);
+        }
+
+        h1 {
+            color: var(--primary-red);
+            font-size: 2.2rem;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+        }
+
+        .intro {
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #555;
+        }
+
+        /* Layout So Le (ZigZag) */
+        .section-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 50px;
+            margin-bottom: 70px;
+            
+            /* QUAN TRỌNG: Tạo khoảng trống bù trừ khi cuộn tới ID */
+            scroll-margin-top: 100px; 
+        }
+
+        .text-col { flex: 1; }
+        .img-col { flex: 1; }
+
+        .text-col h2 {
+            color: var(--primary-red);
+            font-size: 1.8rem;
+            margin-top: 0;
+            border-left: 5px solid var(--accent-gold);
+            padding-left: 15px;
+        }
+
+        .img-col img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+            display: block;
+        }
+        
+        .img-col img:hover { transform: scale(1.02); }
+
+        /* Đảo chiều dòng chẵn */
+        .section-row:nth-child(even) { flex-direction: row-reverse; }
+        
+        .section-row:nth-child(even) .text-col h2 {
+            border-left: none;
+            border-right: 5px solid var(--accent-gold);
+            padding-left: 0;
+            padding-right: 15px;
+            text-align: right; 
+        }
+        .section-row:nth-child(even) .text-col p { text-align: right; }
+
+        .conclusion {
+            background-color: #fff3e0;
+            padding: 30px;
+            border-radius: 10px;
+            text-align: center;
+            font-weight: 500;
+            border: 1px dashed var(--primary-red);
+        }
+
+        /* Responsive Mobile */
+        @media (max-width: 900px) {
+            /* Ẩn tên trường trên màn hình nhỏ để nhường chỗ cho menu */
+            .school-name { display: none; }
+            
+            .nav-links { gap: 15px; }
+            .nav-links a { font-size: 0.85rem; }
+        }
+
+        @media (max-width: 600px) {
+             /* Trên điện thoại, cho menu xuống dòng */
+            .navbar { height: auto; padding: 10px 15px; }
+            .navbar-content { flex-direction: column; gap: 10px; }
+            .nav-links { gap: 10px; width: 100%; justify-content: space-between; font-size: 0.8rem;}
+            
+            .section-row, .section-row:nth-child(even) {
+                flex-direction: column;
+                gap: 20px;
+            }
+            .text-col h2, .section-row:nth-child(even) .text-col h2 {
+                text-align: center; border: none; border-bottom: 3px solid var(--accent-gold); padding: 0 0 10px 0;
+            }
+            .text-col p, .section-row:nth-child(even) .text-col p { text-align: justify; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="logo-box">
+                <a href="#"><img src="https://via.placeholder.com/60/ffffff/000000?text=Logo" alt="Logo" class="logo"></a>
+            </div>
+
+            <ul class="nav-links">
+                <li><a href="#trang-tri">Trang trí</a></li>
+                <li><a href="#banh-chung">Bánh chưng</a></li>
+                <li><a href="#hoi-cho">Hội chợ</a></li>
+                <li><a href="#thien-nguyen">Từ thiện</a></li>
+            </ul>
+
+            <div class="school-name">
+                THPT Kinh Môn II
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        <header>
+            <h1>Sắc Xuân Học Đường</h1>
+            <p class="intro">Rộn ràng không khí Tết Nguyên Đán với chuỗi hoạt động ý nghĩa tại mái trường Kinh Môn II.</p>
+        </header>
+
+        <div id="trang-tri" class="section-row">
+            <div class="text-col">
+                <h2>1. Trang trí không gian xuân</h2>
+                <p>Khuôn viên trường được khoác lên mình diện mạo mới với sắc đỏ, sắc vàng rực rỡ. Các lớp học tích cực tham gia trang trí bảng tin, góc lớp theo chủ đề mùa xuân với hình ảnh bánh chưng, hoa đào, hoa mai và câu đối đỏ. Hoạt động này không chỉ tạo nên không khí Tết ấm áp mà còn khơi dậy tinh thần sáng tạo, đoàn kết trong mỗi tập thể lớp.</p>
+            </div>
+            <div class="img-col">
+                <img src="./img/trangtri.jpg" alt="Trang trí lớp học">
+            </div>
+        </div>
+
+        <div id="banh-chung" class="section-row">
+            <div class="text-col">
+                <h2>2. Hội thi gói bánh chưng</h2>
+                <p>Một trong những hoạt động nổi bật là hội thi gói bánh chưng truyền thống. Dưới sự hướng dẫn của thầy cô và phụ huynh, các em học sinh được trực tiếp trải nghiệm công đoạn chuẩn bị lá dong, gạo nếp, đỗ xanh và thịt lợn để tạo nên những chiếc bánh vuông vắn. Đây là dịp để học sinh hiểu hơn về ý nghĩa của bánh chưng trong văn hóa Tết Việt Nam.</p>
+            </div>
+            <div class="img-col">
+                <img src="./img/banhchung.jpg" alt="Gói bánh chưng">
+            </div>
+        </div>
+
+        <div id="hoi-cho" class="section-row">
+            <div class="text-col">
+                <h2>3. Hội chợ và trò chơi dân gian</h2>
+                <p>Hội chợ xuân được tổ chức sôi nổi với nhiều gian hàng ẩm thực và quà lưu niệm. Bên cạnh đó, các trò chơi dân gian như kéo co, nhảy bao bố, ô ăn quan… mang đến tiếng cười và sự gắn kết giữa các thành viên trong trường. Thông qua các hoạt động này, học sinh không chỉ được vui chơi mà còn học hỏi kỹ năng làm việc nhóm.</p>
+            </div>
+            <div class="img-col">
+                <img src="./img/hoicho.jpg" alt="Trò chơi dân gian">
+            </div>
+        </div>
+
+        <div id="thien-nguyen" class="section-row">
+            <div class="text-col">
+                <h2>4. Hoạt động thiện nguyện</h2>
+                <p>Nhà trường còn phát động chương trình quyên góp, trao quà Tết cho học sinh có hoàn cảnh khó khăn. Những phần quà tuy nhỏ nhưng chứa đựng tình cảm và sự quan tâm sâu sắc của thầy cô, bạn bè, góp phần lan tỏa tinh thần tương thân tương ái trong dịp đầu năm mới.</p>
+            </div>
+            <div class="img-col">
+                <img src="./img/hoatdong.jpg" alt="Hoạt động từ thiện">
+            </div>
+        </div>
+
+        <div class="conclusion">
+            <p>Các hoạt động chào mừng Tết tại Trường THPT Kinh Môn II không chỉ tạo nên không khí vui tươi, phấn khởi mà còn giúp học sinh thêm yêu truyền thống dân tộc.</p>
+        </div>
+    </div>
+
+</body>
+</html>
